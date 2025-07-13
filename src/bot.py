@@ -121,28 +121,31 @@ async def analyze_image_with_gemini(image_bytes: bytes) -> dict | None:
 def render_response(data: dict) -> str:
     """Форматирует ответ для Telegram на основе данных от Gemini."""
     response_parts = []
-    
+
     if data.get('message'):
-        response_parts.append(f"🔮 {data['message']}")
-    
+        response_parts.append(f"🔮 {escape_markdown_v2(data['message'])}")
+
     if data.get('error'):
-        response_parts.append(f"❗️ {data['error']}")
+        response_parts.append(f"❗️ {escape_markdown_v2(data['error'])}")
 
     if data.get('gps') and isinstance(data['gps'], dict):
         lat = data['gps'].get('latitude')
         lon = data['gps'].get('longitude')
+        # Координаты не экранируем, так как они внутри `...`
         response_parts.append(f"🌎 `{lat} {lon}`")
-        
+
         if data.get('address'):
+            # Адрес не экранируем, так как он внутри `...`
             response_parts.append(f"🚩 `{data['address']}`")
         if data.get('date'):
+            # Дату не экранируем, так как она внутри `...`
             response_parts.append(f"📸 `{data['date']}`")
-            
+
     elif data.get('promo'):
+        # Промокод не экранируем, так как он внутри `...`
         response_parts.append(f"💰 `{data['promo']}`")
 
-    full_response = '\n\n'.join(response_parts)
-    return escape_markdown_v2(full_response)
+    return '\n\n'.join(response_parts)
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
