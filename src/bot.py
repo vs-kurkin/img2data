@@ -95,8 +95,12 @@ def escape_markdown_v2(text: str) -> str:
     """Экранирует символы для MarkdownV2."""
     if not isinstance(text, str):
         return ""
+    # Список символов для экранирования в MarkdownV2
     escape_chars = r'_*[]()~`>#+-=|{}.!'
-    return re.sub(f'([{re.escape(escape_chars)}])', r'\\\\1', text)
+    # Создаем регулярное выражение для поиска любого из этих символов
+    pattern = f'([\\{re.escape(escape_chars)}])'
+    # Заменяем каждый найденный символ на него же с предваряющим обратным слэшем
+    return re.sub(pattern, r'\\\1', text)
 
 async def analyze_image_with_gemini(image_bytes: bytes) -> dict | None:
     """Отправляет изображение в Gemini и возвращает структурированный JSON."""
