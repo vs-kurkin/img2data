@@ -1,0 +1,12 @@
+# Файл с секретами
+.env
+
+# Кэш Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Папки IDE
+.idea/
+.vscode/

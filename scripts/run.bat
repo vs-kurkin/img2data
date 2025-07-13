@@ -1,0 +1,3 @@
+@echo off
+echo Starting the bot...
+python src/bot.py

@@ -1,0 +1,27 @@
+# Игнорируем файлы и папки, которые не должны попасть в Docker-образ
+
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Файлы окружения (секреты не должны быть в образе)
+.env
+.env.example
+
+# Скрипты запуска
+install.bat
+run.bat
+
+# Кэш Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Файлы IDE
+.idea/
+.vscode/

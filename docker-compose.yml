@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  listen4me-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: listen4me-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
